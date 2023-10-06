@@ -32,7 +32,7 @@ const userSlice = createSlice({
     },
     logoutUser: (state) => {
       state.user = null
-      localStorage.removeItem("cart")
+      localStorage.removeItem("user")
       toast.success("Logged out successfully")
     },
     toggleTheme: (state) => {
