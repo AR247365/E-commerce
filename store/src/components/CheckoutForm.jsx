@@ -9,8 +9,8 @@ import { clearCart } from "../features/cart/cartSlice"
 export const action =
   (store) =>
   async ({ request }) => {
-    const fromData = await request.fromData()
-    const { name, address } = Object.fromEntries(fromData)
+    const formData = await request.formData()
+    const { name, address } = Object.fromEntries(formData)
     const user = store.getState().userState.user
     const { cartItems, orderTotal, numItemsInCart } = store.getState().cartState
 
@@ -41,7 +41,7 @@ export const action =
         error?.response?.data?.error?.message ||
         "there was an error placing your order"
       toast.error(errorMessage)
-      if (error?.response?.status === 401 || 403) return redirect("/login")
+      // if (error?.response?.status === 401 || 403) return redirect("/login")
       return null
     }
   }
