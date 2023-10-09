@@ -3,15 +3,18 @@ import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { logoutUser } from "../features/user/userSlice"
 import { clearCart } from "../features/cart/cartSlice"
+import { useQueryClient } from "@tanstack/react-query"
 
 const Header = () => {
   const user = useSelector((state) => state.userState.user)
   const dispatch = useDispatch()
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
   const handleLogout = () => {
     navigate("/")
     dispatch(clearCart())
     dispatch(logoutUser())
+    queryClient.removeQueries()
   }
   return (
     <header className=" bg-neutral py-2 text-neutral-content ">
