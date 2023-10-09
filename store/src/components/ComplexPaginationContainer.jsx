@@ -13,11 +13,6 @@ const ComplexPaginationContainer = () => {
     navigate(`${pathname}?${searchParams.toString()}`)
   }
 
-  const renderPageButton = () => {
-    const pageButton = []
-    return pageButton
-  }
-
   const addPageButton = ({ pageNumber, activeClass }) => {
     return (
       <button
@@ -30,6 +25,38 @@ const ComplexPaginationContainer = () => {
         {pageNumber}
       </button>
     )
+  }
+
+  const renderPageButton = () => {
+    const pageButton = []
+    //first button
+    pageButton.push(addPageButton({ pageNumber: 1, activeClass: page === 1 }))
+    //dots
+    if (page > 2) {
+      pageButton.push(
+        <button className="join-item btn btn-xs sm:btn-md" key="dots-1">
+          ...
+        </button>
+      )
+    }
+    // active/current page
+    if (page !== 1 && page !== pageCount) {
+      pageButton.push(addPageButton({ pageNumber: page, activeClass: true }))
+    }
+    // dots
+    if (page < pageCount - 1) {
+      pageButton.push(
+        <button className="join-item btn btn-xs sm:btn-md" key="dots-2">
+          ...
+        </button>
+      )
+    }
+
+    //last button
+    pageButton.push(
+      addPageButton({ pageNumber: pageCount, activeClass: page === pageCount })
+    )
+    return pageButton
   }
 
   if (pageCount < 2) return null
